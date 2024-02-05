@@ -7,6 +7,8 @@ CMPUT 404 Project: Social Distribution
 
 [Project wiki](https://github.com/uofa-cmput404/404f23project-restless-clients/wiki)
 
+[Project Demonstration Video](https://youtu.be/X0vkAN03SjE)
+
 Contributors / Licensing
 ========================
 
@@ -36,7 +38,7 @@ python manage.py runserver
 
 Deployment Link
 ===============
-[Deployed App](https://restlessclients-7b4ebf6b9382.herokuapp.com/)
+[Deployed App](https://restlessclients-7b4ebf6b9382.herokuapp.com/) [No longer deployed]
 
 All User Stories (with ✓ are completed)
 =======================================
