@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- reference https://www.youtube.com/watch?v=VL5ZNCjXEbw -->
+<head>
+    <link rel="stylesheet" href="{% static 'project/base.css' %}">
+</head>
+<div class="task_bar">
+    <div>
+        <button type="button" id="search">
+            <a id="search_a" href="{% url 'project:search' %}">Search</a>
+          </button>
+          <button type="button" id="profile">
+            <a id="prof_a" href="{% url 'project:profile' pk=user.author.id %}">Profile</a>
+          </button>
+          <button type="button" id="post">
+            <a id="post_a"href="{% url 'project:create-post' %}">Create a Post</a>
+          </button>
+          <button type="button" id="home">
+            <a id="home_a"href="{% url 'project:home' %}">Home</a>
+            </button>
+    </div>
+    <div class="right_nav">
+        <button type="button" id="settings">
+            <a id="set_a">Settings</a>
+        </button>
+        <button type="button" id="logout">
+            <a id="log_a" href="{% url 'logout' %}">Logout</a>
+        </button>
+        
+    </div>
+  </div>
+
+<h1>Search for Users</h1>
+<br>
+
+<body>
+<form action="{% url 'project:search' %}" method="get">
+    {% csrf_token %}
+    <input name = "username" type="text" placeholder = "Type here..." >
+    <button type="submit">Search</button>
+</form>
+
+    <br>
+    <div id = 'display_user_search'>
+    <h4 id="user_title">
+        Users:
+    </h4>
+    {% if userlist %}
+    {% for user in userlist %}
+    
+        <li style="list-style-type:none">
+            <a href="{% url 'project:profile' user.id %}">{{ user.displayName }}</a>
+        </li>
+    {% endfor %}
+    {%else%}
+        <p> There are no matching users, try again.</p>
+    {%endif%}
+</div>
+
+
+    
+    
+</body>
+{% endblock %}
+    <!-- <a href="search/">Click to Search</a>> -->

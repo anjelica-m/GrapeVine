@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Log In{% endblock %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'project/base.css' %}">
+
+{% block content %}
+<div class = "login-prompts">
+    <h2>Log In</h2>
+
+    {% if messages %}
+    <ul class="messages"> 
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul> 
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button id ="log_in" type="submit">Log In</button>
+    </form>
+    <h4>New to the Social Distribution?</h4>
+    <a href="{% url 'project:signup' %}">Create an Account</a> 
+    
+</div>
+
+{% endblock %}

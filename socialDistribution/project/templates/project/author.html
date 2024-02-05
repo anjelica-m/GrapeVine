@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'project/base.css' %}">
+
+<h1>{{ author.displayName }}</h1>
+
+{% if author.post_set.all %}
+    <ul>
+    {% for post in author.post_set.all %}
+        <li class="post">
+            <h3><a href="{% url 'project:post' post.author.id post.id %}">{{ post.title }}</a></h3>
+
+            <p>{{ post.content }}</p>
+
+            <p>0 &#x1F44D 0 &#128172</p>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}

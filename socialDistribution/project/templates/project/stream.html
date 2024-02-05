@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'project/base.css' %}">
+<div class="task_bar">
+    <div>
+        <button type="button" id="search">
+            <a id="search_a" href="{% url 'project:search' %}">Search</a>
+          </button>
+          <button type="button" id="profile">
+            <a id="prof_a" href="{% url 'project:profile' pk=user.author.id %}">Profile</a>
+          </button>
+          <button type="button" id="post">
+            <a id="post_a"href="{% url 'project:create-post' %}">Create a Post</a>
+          </button>
+          <button type="button" id="home">
+            <a id="home_a"href="{% url 'project:home' %}">Home</a>
+            </button>
+    </div>
+    <div class="right_nav">
+        <button type="button" id="settings">
+            <a id="set_a">Settings</a>
+        </button>
+        <button type="button" id="logout">
+            <a id="log_a" href="{% url 'logout' %}">Logout</a>
+        </button>
+        
+    </div>
+  </div>
+<h1>Stream/Inbox Page</h1>
+
+  
+
+<div class="user-profile">
+    <img src={{ author.profileImage }} alt="User Image">
+    <div class="user-details">
+        <h2 id="stream-name">{{user.author.displayName}}</h2>
+        <p>Welcome to SocialDistribution! Make posts, explore other user profiles, and make friends.</p>
+        <button>Settings</button>
+    </div>
+</div>
+
+<div class="user-posts">
+    {% if latest_posts %}
+        {% for post in latest_posts %}
+            <div class="post">
+                <h3><a href="{% url 'project:post' post.author.id post.id %}">{{ post.title }}</a></h3>
+                <p>{{ post.content }}</p>
+                <p>{{ post.postlike_set.count }} &#x1F44D; {{ post.comment_set.count }} &#128172;</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>There is no activity in your feed...</p>
+    {% endif %}
+</div>
+
+
+<div class="inbox">
+    <h2>Inbox</h2>
+    <!-- Friend request processing -->
+    <h3>Friend Requests</h3>
+    <ul>
+        {% for fr in user.author.incoming_follow_requests.all %}
+            <li>
+                {{ fr.follower.displayName }} wants to follow you. 
+    
+                <!-- Accept Follow Form -->
+                <form method="post" action="{% url 'project:accept_follow' fr.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Accept</button>
+                </form> |
+    
+                <!-- Decline Follow Form -->
+                <form method="post" action="{% url 'project:decline_follow' fr.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Decline</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    
+</div>
+{% endblock %}

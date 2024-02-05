@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Project Title{% endblock %}</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'project/base.css' %}">
+    </head>
+
+    <body>
+        <main>
+            <header>
+                <h1 class="socdis">SocialDistribution</h1>
+            </header>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </body>
+</html>

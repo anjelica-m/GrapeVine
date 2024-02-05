@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <!-- The following are examples to reference user and author data. -->
+    <div class="task_bar">
+      <div>
+          <button type="button" id="search">
+              <a id="search_a" href="{% url 'project:search' %}">Search</a>
+            </button>
+            <button type="button" id="profile">
+              <a id="prof_a" href="{% url 'project:profile' pk=user.author.id %}">Profile</a>
+            </button>
+            <button type="button" id="post">
+              <a id="post_a"href="{% url 'project:create-post' %}">Create a Post</a>
+            </button>
+            <button type="button" id="home">
+              <a id="home_a"href="{% url 'project:home' %}">Home</a>
+              </button>
+      </div>
+      <div class="right_nav">
+          <button type="button" id="settings">
+              <a id="set_a">Settings</a>
+          </button>
+          <button type="button" id="logout">
+              <a id="log_a" href="{% url 'logout' %}">Logout</a>
+          </button>
+          
+      </div>
+    </div>
+  <h1>Hi {{ user.username }}!</h1>
+  <h1>Hi {{ user.author.displayName }}!</h1>
+  <h1>Check me out on Github: {{ user.author.github }}</h1>
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+{% endblock %}

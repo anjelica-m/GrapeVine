@@ -1,0 +1,11 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'project/base.css' %}">
+
+<h1>Edit Post</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" value="Submit">Submit</button>
+</form>

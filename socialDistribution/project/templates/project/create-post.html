@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Create Post{% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'project/base.css' %}">
+<head>
+  
+  <script>
+
+    function checkFormVals(value){
+      console.log(value.selectedOptions[0].value)
+      if (value.selectedOptions[0].value == 'text/plain' || value.selectedOptions[0].value == 'text/markdown'){
+        document.getElementById("content").style.display = 'block';
+        document.getElementById("picture").style.display = 'none';
+      }
+      else{
+        document.getElementById("content").style.display = 'none';
+        document.getElementById("picture").style.display = 'block';
+      }
+    }
+
+  </script>
+</head>
+<div class="task_bar">
+    <div>
+        <button type="button" id="search">
+            <a id="search_a" href="{% url 'project:search' %}">Search</a>
+          </button>
+          <button type="button" id="profile">
+            <a id="prof_a" href="{% url 'project:profile' pk=user.author.id %}">Profile</a>
+          </button>
+          <button type="button" id="post">
+            <a id="post_a"href="{% url 'project:create-post' %}">Create a Post</a>
+          </button>
+          <button type="button" id="home">
+            <a id="home_a"href="{% url 'project:home' %}">Home</a>
+            </button>
+    </div>
+    <div class="right_nav">
+        <button type="button" id="settings">
+            <a id="set_a">Settings</a>
+        </button>
+        <button type="button" id="logout">
+            <a id="log_a" href="{% url 'logout' %}">Logout</a>
+        </button>
+        
+    </div>
+  </div>
+<form method="POST" enctype="multipart/form-data" autocomplete="off" id="myForm">
+    {% csrf_token %}
+    {{form.non_field_errors}}
+    
+    <p>Type:</p>{% render_field form.contentType onchange='checkFormVals(form.contentType)' %}
+    <p id="content">Content: {{ form.content }}</p>
+    <p id="picture" style="display: none;">Image Upload: {{ form.picture }}</p>
+    <p id="title" on>Title: {{ form.title }}</p>
+    <p id="desc">Description: {{ form.description }}</p>
+    <p id="cat">Categories: {{ form.categories }}</p>
+    <p id="vis">Visibility: {{ form.visibility }}</p>
+    <p id="unlist">Unlisted: {{ form.unlisted }}</p>
+
+ 
+    <button form="myForm" type="submit" value="Submit">Create</button>
+</form>
+{% endblock %}
